@@ -4,14 +4,103 @@
   padding: 20px;
 }
 
+.invoice-card-container{
+  display: flex;
+  margin: 0 20px;
+}
+
+.invoice-details-card{
+  width: 50%;
+  border: 1px solid #D0D5DD;
+  padding: 24px;
+  border-radius: 24px;
+
+  span{
+    color: #344054;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.invoice-preview-card{
+  width: 50%;
+  padding: 24px;
+  background: #F5F5F5;
+  border-radius: 24px;
+  margin-left: 24px;
+}
+
+.invoice-details{
+background: #FFFFFF;
+padding: 24px;
+border-radius: 14px;
+
+  label{
+    color: #76787D;
+  }
+  p{
+    color: #101828;
+    font-weight: 500;
+  }
+}
+
+.invoice-details-preview-card{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.payment-terms-section{
+  margin-left: 40px;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.mb-40{
+  margin-bottom: 40px;
+}
+
+.invoice-table th, 
+.invoice-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.invoice-table th {
+  background-color: #F5F5F5;
+  color: #76787D;
+}
+
+.invoice-table tfoot td {
+  font-weight: bold;
+  text-align: right;
+}
+
 form {
   width: 60%;
   display: flex;
   flex-direction: column;
 }
 
-form input,
+form input{
+  outline: none;
+  border:1px solid #D0D5DD;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
 form select {
+  outline: none;
+  border:1px solid #D0D5DD;
+  border-radius: 8px;
+  margin-top: 10px;
   margin-bottom: 15px;
   padding: 10px;
   font-size: 16px;
@@ -20,20 +109,31 @@ form select {
 button {
   padding: 10px;
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 
 button[type='submit'] {
-  background-color: #28a745;
+  background-color: #7F56D9;
   color: #fff;
   border: none;
+  margin-left: 10px;
+  border-radius: 13%;
 }
 
 button[type='button'] {
-  background-color: #ffc107;
-  color: #fff;
-  border: none;
+  background-color: #fff;
+  color: black;
+  border: 1px solid #D0D5DD;
+  border-radius: 13%;
+}
+
+.add-item-button{
+  width: 100% !important;
+  background: #7F56D9 !important;
+  border: 1px solid #D0D5DD !important;
+  border-radius: 8px !important;
+  color: #fff !important;
 }
 
 .toast-container {
@@ -45,4 +145,63 @@ button[type='button'] {
 .column{
   display: flex;
   flex-direction: column;
+}
+
+.form-container{
+  width: 100%;
+}
+
+.invoice-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 20px;
+}
+
+.invoice-title{
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.invoice-subtitle{
+  color: #667085;
+}
+
+.divider {
+  border: none;          
+  height: 1px;             
+  background-color: #EAECF0; 
+  margin: 20px 0;     
+}
+
+.mt-25{
+  margin-top: 25px;
+}
+
+.ml-15{
+  margin-left: 15px;
+}
+
+.billfrom-container{
+  display: flex;
+}
+
+.input-w-100{
+  justify-content: space-between;
+  input{
+    width: 120px;
+  }
+}
+
+.item-row{
+  display: flex;
+
+   input{
+    width: 100px;
+   }
+}
+
+.w-75{
+  width: 75px !important;
+  background-color: #F9FAFB !important;
 }

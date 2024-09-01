@@ -35,7 +35,7 @@ const initialFormValues: FormValues = {
     },
   },
   itemAttributes: [{ id: "", name: "", price: 0, quantity: 0 }],
-  totalAmount: 0,
+  totalAmount: null,
 };
 
 const InvoiceForm: React.FC = () => {
@@ -86,6 +86,16 @@ const InvoiceForm: React.FC = () => {
     });
   };
 
+  const addItem = () => {
+    setFormValues((prev) => ({
+      ...prev,
+      itemAttributes: [
+        ...prev.itemAttributes,
+        { id: "", name: "", price: null, quantity: null },
+      ],
+    }));
+  };
+
   const resetForm = () => {
     setFormValues(initialFormValues);
   };
@@ -93,7 +103,7 @@ const InvoiceForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const input = {
-      clientMutationId: "1",
+      clientMutationId: "random id",
       createInvoiceAttributes: {
         invoiceDate: formValues.invoiceDate,
         paymentTerms: formValues.paymentTerms,
@@ -113,7 +123,7 @@ const InvoiceForm: React.FC = () => {
         billingFromAttributes: {
           companyName: formValues.billingFromAttributes.companyName,
           companyEmail: formValues.billingFromAttributes.companyEmail,
-          billingFromAddress: {
+          billingFromAddressAttributes: {
             streetAddress:
               formValues.billingFromAttributes.billingFromAddress.streetAddress,
             city: formValues.billingFromAttributes.billingFromAddress.city,
@@ -132,40 +142,57 @@ const InvoiceForm: React.FC = () => {
     };
 
     try {
-      await createInvoice({ variables: { input } });
+      console.log("input data", input);
+      const invoiceResponse = await createInvoice({ variables: { input } });
+      console.log("invoice response", invoiceResponse);
       toast.success("Invoice created successfully!");
       resetForm();
     } catch (error) {
-      console.error("Error creating invoice:", error);
+      console.error("Error creating invoice:", error.message);
       toast.error("Error creating invoice.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>New Invoice</h1>
-      <label>Create a new invoice for your customers</label>
-      <BillFrom
-        handleInputChange={handleInputChange}
-        values={formValues.billingFromAttributes}
-      />
-      <BillTo
-        handleInputChange={handleInputChange}
-        values={formValues.billingToAttributes}
-      />
-      <InvoiceDetails
-        handleInputChange={handleInputChange}
-        values={formValues}
-      />
-      <ItemsList
-        items={formValues.itemAttributes}
-        handleItemsChange={handleItemsChange}
-      />
-      <RealTimeDisplay data={formValues} />
-      <button type="submit">Create Invoice</button>
-      <button type="button" onClick={resetForm}>
-        Reset Form
-      </button>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="invoice-header">
+        <div>
+          <div className="invoice-title">New Invoice</div>
+          <div className="invoice-subtitle">
+            Create a new invoice for your customers
+          </div>
+        </div>
+        <div>
+          <button type="button" onClick={resetForm}>
+            Reset
+          </button>
+          <button type="submit">Save</button>
+        </div>
+      </div>
+      <div className="invoice-card-container">
+        <div className="invoice-details-card">
+          <BillFrom
+            handleInputChange={handleInputChange}
+            values={formValues.billingFromAttributes}
+          />
+          <BillTo
+            handleInputChange={handleInputChange}
+            values={formValues.billingToAttributes}
+          />
+          <InvoiceDetails
+            handleInputChange={handleInputChange}
+            values={formValues}
+          />
+          <ItemsList
+            items={formValues.itemAttributes}
+            handleItemsChange={handleItemsChange}
+            addItem={addItem}
+          />
+        </div>
+        <div className="invoice-preview-card">
+          <RealTimeDisplay data={formValues} />
+        </div>
+      </div>
       <ToastContainer />
     </form>
   );

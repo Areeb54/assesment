@@ -8,9 +8,10 @@ interface Props {
     field: string,
     value: string | number
   ) => void;
+  addItem: () => void;
 }
 
-const ItemsList: React.FC<Props> = ({ items, handleItemsChange }) => {
+const ItemsList: React.FC<Props> = ({ items, handleItemsChange, addItem }) => {
   const handleInputChange =
     (index: number, field: string) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,40 +32,47 @@ const ItemsList: React.FC<Props> = ({ items, handleItemsChange }) => {
             <input
               type="text"
               name={`items[${index}].name`}
-              placeholder="Item Name"
               value={item.name}
               onChange={handleInputChange(index, "name")}
               required
             />
           </div>
-          <div className="column">
+          <div className="column ml-15">
             <span>Quantity</span>
             <input
               type="number"
               name={`items[${index}].quantity`}
-              placeholder="Quantity"
               value={item.quantity}
               onChange={handleInputChange(index, "quantity")}
               required
             />
           </div>
-          <div className="column">
+          <div className="column ml-15">
             <span>Price</span>
             <input
               type="number"
               name={`items[${index}].price`}
-              placeholder="Price"
               value={item.price}
               onChange={handleInputChange(index, "price")}
               required
             />
           </div>
-          <div className="column">
+          <div className="column ml-15">
             <span>Total</span>
-            {item.quantity * item.price}
+            <input
+              className="w-75"
+              type="number"
+              value={
+                item.quantity && item.price ? item.quantity * item.price : ""
+              }
+              readOnly
+            />
           </div>
         </div>
       ))}
+      <button type="button" onClick={addItem} className="add-item-button">
+        Add New Item
+      </button>
     </div>
   );
 };
